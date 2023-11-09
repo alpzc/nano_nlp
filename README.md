@@ -169,6 +169,71 @@ plt.show()
 
 ### Defining the Model and Functions
 
+The model follows the architecture in the following form:
+
+<div>
+  <pre>
+Input Tokens
+    |
+Token Embedding
+    |
+    V
+Position Embedding
+    |
+    V
+Transformer Block 1 <span style="font-size:20px;">→</span> Transformer Block 2 <span style="font-size:20px;">→</span> ... <span style="font-size:20px;">→</span> Transformer Block N
+    |                       |                                   |
+    V                       V                                   V
+Layer Normalization 1     Layer Normalization 2               Layer Normalization N
+    |                       |                                   |
+    V                       V                                   V
+Residual Connection 1     Residual Connection 2               Residual Connection N
+    |                       |                                   |
+    V                       V                                   V
+Final Layer Normalization
+    |
+    V
+Linear Layer (lm_head)
+    |
+    V
+Batch Normalization
+    |
+    V
+Output (Logits)
+  </pre>
+</div>
+
+
+Where the transformer block consists only of the decoder part of the proposed transformer architecture in its original paper [Attention Is All You Need](https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf). 
+
+<div style="text-align:center;">
+  <pre>
+Input
+    |
+    V
+Self-Attention
+    |
+    V
+Residual Connection 1
+    |
+    V
+Layer Normalization 1
+    |
+    V
+Feed-Forward Network
+    |
+    V
+Residual Connection 2
+    |
+    V
+Layer Normalization 2
+    |
+    V
+Output
+  </pre>
+</div>
+
+
 * Defining the Multihead Attention and Transformer Blocks:
 ```
 @torch.no_grad()
